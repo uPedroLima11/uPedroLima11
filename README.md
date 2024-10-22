@@ -4,7 +4,7 @@
   <img height="167" src="https://github-readme-stats.vercel.app/api/top-langs/?username=uPedroLima11&border_color=808080&layout=compact&theme=transparent&title_color=808080&text_color=808080">
 </div><br>
 
-<div style="display: inline_block">Technologies: </div>
+<div style="display: inline_block">Technologias: </div>
 <br>
 
 <div style="display: inline_block">
