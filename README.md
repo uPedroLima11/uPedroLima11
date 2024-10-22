@@ -1,6 +1,6 @@
 <div align="center"><br>
   <img  width="400"src="https://github-readme-stats.vercel.app/api?username=uPedroLima11&show_icons=true&rank_icon=github&ring_color=E49B0F&theme=transparent&border_color=808080&icon_color=E49B0F&include_all_commits=true&count_private=true&title_color=808080&text_color=808080"/>
-  <br>
+  
   <img height="167" src="https://github-readme-stats.vercel.app/api/top-langs/?username=uPedroLima11&border_color=808080&layout=compact&theme=transparent&title_color=808080&text_color=808080">
 </div><br>
 
@@ -17,4 +17,4 @@
   
   
 
-</div><br>
+</div>
