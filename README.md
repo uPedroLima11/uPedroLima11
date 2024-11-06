@@ -4,10 +4,10 @@
   <img height="167" src="https://github-readme-stats.vercel.app/api/top-langs/?username=upedrolima11&border_color=808080&layout=compact&theme=transparent&title_color=808080&text_color=808080">
 </div><br>
 
-<div style="display: inline_block">Technologias: </div>
+<div style="display: inline_block" align="center">Technologies: </div>
 <br>
 
-<div style="display: inline_block">
+<div style="display: inline_block" align="center">
   <img align="center" height="30" width="40" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/tailwindcss/tailwindcss-plain.svg">
   <img align="center" height="30" width="40" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/typescript/typescript-original.svg">
   <img align="center" height="30" width="40" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/javascript/javascript-original.svg">
