@@ -1,4 +1,4 @@
-Oii! Sou o Pedro Lima!!
+Olá! Sou o Pedro Lima!!
 
 - 🔭 Hoje trabalho com Front-End
 - 📫 Contate-me no email: pedromendeslima2016@gmail.com
