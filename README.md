@@ -1,6 +1,6 @@
 Olá! Sou o Pedro Lima!!
 
-- 🔭 Hoje trabalho com Front-End
+- 🔭 Hoje trabalho com FullStack
 - 📫 Contate-me no email: pedromendeslima2016@gmail.com
 - 🌱 Estudando PHP, Next, TS e Tailwind
 
