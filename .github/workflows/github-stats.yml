@@ -31,7 +31,7 @@ jobs:
 
       - name: Generate stats
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STATS_TOKEN: ${{ secrets.STATS_TOKEN }}
           GITHUB_USERNAME: uPedroLima11
         run: node .github/scripts/github-stats.js
 
