@@ -1,310 +1,150 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const username = process.env.GITHUB_USERNAME || "uPedroLima11";
 const token = process.env.GITHUB_TOKEN;
-
-if (!token) {
-  throw new Error("GITHUB_TOKEN não encontrado.");
-}
 
 const headers = {
   Authorization: `Bearer ${token}`,
   Accept: "application/vnd.github+json",
   "X-GitHub-Api-Version": "2022-11-28",
+  "User-Agent": `${username}-profile-stats`,
 };
 
 async function github(url) {
   const response = await fetch(url, { headers });
-
   if (!response.ok) {
-    throw new Error(
-      `GitHub API ${response.status}: ${await response.text()}`
-    );
+    throw new Error(`GitHub API ${response.status}: ${await response.text()}`);
   }
-
   return response;
 }
 
 async function getAllPages(url) {
   const results = [];
-
-  for (let page = 1; ; page++) {
+  for (let page = 1; ; page += 1) {
     const separator = url.includes("?") ? "&" : "?";
-
-    const response = await github(
-      `${url}${separator}per_page=100&page=${page}`
-    );
-
+    const response = await github(`${url}${separator}per_page=100&page=${page}`);
     const data = await response.json();
-
-    if (!Array.isArray(data)) {
-      return data;
-    }
-
+    if (!Array.isArray(data)) throw new Error(`Resposta inesperada para ${url}`);
     results.push(...data);
-
-    if (data.length < 100) {
-      break;
-    }
+    if (data.length < 100) return results;
   }
-
-  return results;
 }
 
-async function countSearch(query) {
-  const response = await github(
-    `https://api.github.com/search/issues?q=${encodeURIComponent(query)}&per_page=1`
-  );
+function lastPageFromLink(linkHeader) {
+  if (!linkHeader) return null;
+  for (const part of linkHeader.split(",")) {
+    if (!part.includes('rel="last"')) continue;
+    const match = part.match(/[?&]page=(\d+)/);
+    if (match) return Number(match[1]);
+  }
+  return null;
+}
 
+async function countCommits(repo) {
+  const url = new URL(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/commits`);
+  url.searchParams.set("author", username);
+  url.searchParams.set("per_page", "1");
+  const response = await fetch(url, { headers });
+  if (response.status === 409) return 0;
+  if (!response.ok) {
+    throw new Error(`GitHub API ${response.status}: ${await response.text()}`);
+  }
+  const commits = await response.json();
+  if (!Array.isArray(commits) || commits.length === 0) return 0;
+  return lastPageFromLink(response.headers.get("link")) || commits.length;
+}
+
+async function countPullRequests() {
+  const query = encodeURIComponent(`type:pr author:${username}`);
+  const response = await github(`https://api.github.com/search/issues?q=${query}&per_page=1`);
   const data = await response.json();
   return data.total_count || 0;
 }
 
-function escapeXML(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&apos;");
+function escapeXml(value) {
+  return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&apos;");
 }
 
-function shortName(name, max = 42) {
-  if (name.length <= max) return name;
-  return `${name.slice(0, max - 3)}...`;
+function shorten(value, maxLength = 42) {
+  return value.length <= maxLength ? value : `${value.slice(0, maxLength - 3)}...`;
+}
+
+function renderSvg(stats) {
+  const repoName = escapeXml(shorten(stats.mostActiveRepo.name));
+  const repoUrl = escapeXml(stats.mostActiveRepo.html_url);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="220" viewBox="0 0 800 220" role="img" aria-labelledby="title description">
+  <title id="title">GitHub Stats de Pedro Lima</title>
+  <desc id="description">${stats.totalCommits} commits em repositórios públicos próprios, ${stats.repoCount} repositórios públicos, ${stats.pullRequests} pull requests e repositório mais ativo ${repoName}, com ${stats.mostActiveCommits} commits.</desc>
+  <style>
+    .card { fill: #0d1117; stroke: #30363d; }
+    .title { fill: #f0f6fc; font: 600 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .number { fill: #58a6ff; font: 700 29px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .label, .repo-title { fill: #8b949e; font: 500 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .repo { fill: #58a6ff; font: 600 17px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .repo-count { fill: #c9d1d9; font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .divider { stroke: #30363d; }
+  </style>
+  <rect class="card" x="0.5" y="0.5" width="799" height="219" rx="10"/>
+  <text class="title" x="400" y="34" text-anchor="middle">GitHub Activity</text>
+  <line class="divider" x1="40" y1="51" x2="760" y2="51"/>
+  <text class="number" x="150" y="94" text-anchor="middle">${stats.totalCommits}</text>
+  <text class="label" x="150" y="118" text-anchor="middle">Commits</text>
+  <text class="number" x="400" y="94" text-anchor="middle">${stats.repoCount}</text>
+  <text class="label" x="400" y="118" text-anchor="middle">Repositórios</text>
+  <text class="number" x="650" y="94" text-anchor="middle">${stats.pullRequests}</text>
+  <text class="label" x="650" y="118" text-anchor="middle">Pull Requests</text>
+  <line class="divider" x1="40" y1="137" x2="760" y2="137"/>
+  <text class="repo-title" x="40" y="165">Repositório mais ativo</text>
+  <a href="${repoUrl}"><text class="repo" x="40" y="194">${repoName}</text></a>
+  <text class="repo-count" x="760" y="194" text-anchor="end">${stats.mostActiveCommits} commits</text>
+</svg>\n`;
 }
 
 async function main() {
-  console.log(`Gerando estatísticas para ${username}...`);
-
-  const repos = await getAllPages(
-    `https://api.github.com/users/${username}/repos?type=owner&sort=updated`
-  );
-
-  const ownRepos = repos.filter(
-    (repo) => !repo.fork && !repo.archived
-  );
-
-  console.log(`${ownRepos.length} repositórios encontrados.`);
-
-  let totalCommits = 0;
-  let mostActiveRepo = null;
-  let mostActiveCommits = 0;
+  if (!token) throw new Error("GITHUB_TOKEN não encontrado.");
+  console.log(`Gerando estatísticas públicas de ${username}...`);
+  const repos = await getAllPages(`https://api.github.com/users/${username}/repos?type=owner&sort=updated`);
+  const ownRepos = repos.filter((repo) => !repo.fork && !repo.archived);
+  const commitCounts = [];
 
   for (const repo of ownRepos) {
     try {
-      const commits = await getAllPages(
-        `https://api.github.com/repos/${username}/${repo.name}/commits?author=${username}`
-      );
-
-      const count = commits.length;
-
-      totalCommits += count;
-
+      const count = await countCommits(repo);
+      commitCounts.push({ repo, count });
       console.log(`${repo.name}: ${count} commits`);
-
-      if (count > mostActiveCommits) {
-        mostActiveCommits = count;
-        mostActiveRepo = repo;
-      }
     } catch (error) {
-      console.warn(
-        `${repo.name}: não foi possível contar commits (${error.message})`
-      );
+      console.warn(`${repo.name}: contagem ignorada (${error.message})`);
     }
   }
 
-  const pullRequests = await countSearch(
-    `type:pr author:${username}`
-  );
+  if (commitCounts.length !== ownRepos.length) {
+    throw new Error(`Contagem incompleta: ${commitCounts.length} de ${ownRepos.length} repositórios. O SVG anterior foi preservado.`);
+  }
 
-  const repoCount = ownRepos.length;
+  commitCounts.sort((a, b) => b.count - a.count || a.repo.name.localeCompare(b.repo.name));
+  const mostActive = commitCounts[0];
+  if (!mostActive) throw new Error("Nenhum repositório público próprio foi encontrado.");
 
-  const activeRepoName = mostActiveRepo
-    ? shortName(mostActiveRepo.name)
-    : "Nenhum repositório";
-
-  const activeRepoUrl = mostActiveRepo
-    ? mostActiveRepo.html_url
-    : `https://github.com/${username}`;
-
-  const svg = `
-<svg xmlns="http://www.w3.org/2000/svg"
-     width="800"
-     height="250"
-     viewBox="0 0 800 250"
-     role="img"
-     aria-label="GitHub Stats de Pedro Lima">
-
-  <style>
-    .card {
-      fill: #0d1117;
-      stroke: #30363d;
-      stroke-width: 1;
-    }
-
-    .title {
-      fill: #f0f6fc;
-      font: 600 21px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .number {
-      fill: #58a6ff;
-      font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .label {
-      fill: #8b949e;
-      font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .repoTitle {
-      fill: #f0f6fc;
-      font: 600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .repo {
-      fill: #58a6ff;
-      font: 600 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .repoCount {
-      fill: #8b949e;
-      font: 500 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .divider {
-      stroke: #30363d;
-      stroke-width: 1;
-    }
-  </style>
-
-  <rect
-    class="card"
-    x="0.5"
-    y="0.5"
-    width="799"
-    height="249"
-    rx="10"
-  />
-
-  <text
-    class="title"
-    x="400"
-    y="38"
-    text-anchor="middle"
-  >GitHub Activity</text>
-
-  <line
-    class="divider"
-    x1="40"
-    y1="59"
-    x2="760"
-    y2="59"
-  />
-
-  <text
-    class="number"
-    x="150"
-    y="108"
-    text-anchor="middle"
-  >${totalCommits}</text>
-
-  <text
-    class="label"
-    x="150"
-    y="133"
-    text-anchor="middle"
-  >Commits</text>
-
-  <text
-    class="number"
-    x="400"
-    y="108"
-    text-anchor="middle"
-  >${repoCount}</text>
-
-  <text
-    class="label"
-    x="400"
-    y="133"
-    text-anchor="middle"
-  >Repositórios</text>
-
-  <text
-    class="number"
-    x="650"
-    y="108"
-    text-anchor="middle"
-  >${pullRequests}</text>
-
-  <text
-    class="label"
-    x="650"
-    y="133"
-    text-anchor="middle"
-  >Pull Requests</text>
-
-  <line
-    class="divider"
-    x1="40"
-    y1="158"
-    x2="760"
-    y2="158"
-  />
-
-  <text
-    class="repoTitle"
-    x="40"
-    y="190"
-  >Repositório mais ativo</text>
-
-  <a href="${escapeXML(activeRepoUrl)}">
-    <text
-      class="repo"
-      x="40"
-      y="221"
-    >${escapeXML(activeRepoName)}</text>
-  </a>
-
-  <text
-    class="repoCount"
-    x="760"
-    y="221"
-    text-anchor="end"
-  >${mostActiveCommits} commits</text>
-
-</svg>
-`.trim();
-
-  const outputDirectory = path.join(
-    process.cwd(),
-    "images"
-  );
-
-  fs.mkdirSync(outputDirectory, {
-    recursive: true,
-  });
-
-  fs.writeFileSync(
-    path.join(outputDirectory, "github-stats.svg"),
-    svg
-  );
-
-  console.log("");
-  console.log("=== RESULTADO ===");
-  console.log(`Commits: ${totalCommits}`);
-  console.log(`Repositórios: ${repoCount}`);
-  console.log(`Pull Requests: ${pullRequests}`);
-  console.log(
-    `Repositório mais ativo: ${
-      mostActiveRepo?.name || "N/A"
-    } (${mostActiveCommits} commits)`
-  );
+  const stats = {
+    totalCommits: commitCounts.reduce((total, item) => total + item.count, 0),
+    repoCount: ownRepos.length,
+    pullRequests: await countPullRequests(),
+    mostActiveRepo: mostActive.repo,
+    mostActiveCommits: mostActive.count,
+  };
+  const output = path.join(process.cwd(), "images", "github-stats.svg");
+  fs.mkdirSync(path.dirname(output), { recursive: true });
+  fs.writeFileSync(output, renderSvg(stats), "utf8");
+  console.log("GitHub Stats gerado com sucesso:", stats);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = { renderSvg };
