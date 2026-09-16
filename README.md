@@ -1,39 +1,88 @@
-Olá! Sou o Pedro Lima!!
+<h1 align="center">Olá! Sou o Pedro Lima 👋</h1>
 
-- 🔭 Hoje trabalho com FullStack
-- 📫 Contate-me no email: pedromendeslima2016@gmail.com
-- 🌱 Estudando PHP, Next, TS e Tailwind
+<h3 align="center">Full Stack Developer</h3>
 
+<p align="center">
+  Desenvolvedor focado na criação de aplicações web, sistemas completos e APIs.
+</p>
 
-<div align="center"><br>
-  <img  width="400"src="https://github-readme-stats.vercel.app/api?username=upedrolima11&show_icons=true&rank_icon=github&ring_color=E49B0F&theme=transparent&border_color=808080&icon_color=E49B0F&include_all_commits=true&count_private=true&title_color=808080&text_color=808080"/>
-  
-  <img height="167" src="https://github-readme-stats.vercel.app/api/top-langs/?username=upedrolima11&border_color=808080&layout=compact&theme=transparent&title_color=808080&text_color=808080">
-</div><br>
+<p align="center">
+  🔭 Atualmente trabalho com desenvolvimento Full Stack<br>
+  🌱 Estudando e aprimorando PHP, Next.js, TypeScript e Tailwind CSS<br>
+  📫 <a href="mailto:pedromendeslima2016@gmail.com">pedromendeslima2016@gmail.com</a>
+</p>
 
-<div style="display: inline_block" align="center">Technologies: </div>
 <br>
 
-<div style="display: inline_block" align="center">
-  <img align="center" height="30" width="40" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/tailwindcss/tailwindcss-plain.svg">
-  <img align="center" height="30" width="40" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/typescript/typescript-original.svg">
-  <img align="center" height="30" width="40" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/javascript/javascript-original.svg">
-  <img align="center" height="30" width="40" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/react/react-original.svg">
-  <img align="center" height="30" width="40" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/mysql/mysql-original.svg">
-  <img align="center" height="30" width="40" src="https://github.com/devicons/devicon/blob/master/icons/nextjs/nextjs-original.svg">
-  <img align="center" height="30" width="40" src="https://github.com/devicons/devicon/blob/master/icons/php/php-original.svg">
-</div>
+<h2 align="center">🛠️ Tecnologias</h2>
 
-<br/>
-<hr/>
-<br/>
-  <div> 
-  <a href="https://www.instagram.com/upedro_lima" target="_blank"><img src="https://img.shields.io/badge/-Instagram-%23E4405F?style=for-the-badge&logo=instagram&logoColor=white" target="_blank"></a>
-  <a href = "mailto:pedromendeslima2016@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-  <a href="https://www.linkedin.com/in/upedrolima" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
-</div>
+<p align="center">
+  <img
+    src="https://skillicons.dev/icons?i=ts,js,react,nextjs,nodejs,php,tailwind,mysql,postgres,java,spring&perline=11"
+    alt="Tecnologias"
+  />
+</p>
 
-<div style="display: inline_block" align="center">
-  <img src="https://raw.githubusercontent.com/uPedroLima11/uPedroLima11/output/snake.svg" alt="Snake animation" />
-</div>
 <br>
+
+<h2 align="center">📊 GitHub Stats</h2>
+
+<p align="center">
+  <img
+    src="./images/github-stats.svg"
+    alt="GitHub Stats de Pedro Lima"
+    width="800"
+  />
+</p>
+
+<br>
+
+<h2 align="center">🚀 Sobre meu GitHub</h2>
+
+<div align="center">
+
+| | |
+| :--- | :--- |
+| 💻 **Foco** | Desenvolvimento Full Stack |
+| ⚡ **Stack principal** | TypeScript • React • Next.js • Node.js |
+| 🗄️ **Banco de dados** | MySQL • PostgreSQL |
+| ☕ **Back-end** | Node.js • PHP • Java • Spring |
+| 🎨 **Front-end** | React • Next.js • Tailwind CSS |
+
+</div>
+
+<br>
+
+<h2 align="center">🌐 Contato</h2>
+
+<p align="center">
+  <a href="https://www.instagram.com/upedro_lima" target="_blank">
+    <img
+      src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"
+      alt="Instagram"
+    />
+  </a>
+  <a href="mailto:pedromendeslima2016@gmail.com">
+    <img
+      src="https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white"
+      alt="Gmail"
+    />
+  </a>
+  <a href="https://www.linkedin.com/in/upedrolima" target="_blank">
+    <img
+      src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"
+      alt="LinkedIn"
+    />
+  </a>
+</p>
+
+<br>
+
+<h2 align="center">🐍 Minhas Contribuições</h2>
+
+<p align="center">
+  <img
+    src="https://raw.githubusercontent.com/uPedroLima11/uPedroLima11/output/snake.svg"
+    alt="Snake animation"
+  />
+</p>
