@@ -70,7 +70,7 @@ function escapeXML(value) {
     .replaceAll("'", "&apos;");
 }
 
-function shortName(name, max = 38) {
+function shortName(name, max = 42) {
   if (name.length <= max) return name;
   return `${name.slice(0, max - 3)}...`;
 }
@@ -86,7 +86,7 @@ async function main() {
     (repo) => !repo.fork && !repo.archived
   );
 
-  console.log(`${ownRepos.length} repositórios públicos próprios encontrados.`);
+  console.log(`${ownRepos.length} repositórios encontrados.`);
 
   let totalCommits = 0;
   let mostActiveRepo = null;
@@ -110,7 +110,7 @@ async function main() {
       }
     } catch (error) {
       console.warn(
-        `Não foi possível contar commits de ${repo.name}: ${error.message}`
+        `${repo.name}: não foi possível contar commits (${error.message})`
       );
     }
   }
@@ -130,14 +130,13 @@ async function main() {
     : `https://github.com/${username}`;
 
   const svg = `
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="800"
-  height="245"
-  viewBox="0 0 800 245"
-  role="img"
-  aria-label="GitHub Stats de Pedro Lima"
->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="800"
+     height="250"
+     viewBox="0 0 800 250"
+     role="img"
+     aria-label="GitHub Stats de Pedro Lima">
+
   <style>
     .card {
       fill: #0d1117;
@@ -147,32 +146,32 @@ async function main() {
 
     .title {
       fill: #f0f6fc;
-      font: 600 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font: 600 21px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }
 
     .number {
       fill: #58a6ff;
-      font: 700 28px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }
 
     .label {
       fill: #8b949e;
-      font: 500 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }
 
-    .repo-title {
+    .repoTitle {
       fill: #f0f6fc;
       font: 600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }
 
     .repo {
       fill: #58a6ff;
-      font: 600 17px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font: 600 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }
 
-    .repo-count {
+    .repoCount {
       fill: #8b949e;
-      font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font: 500 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }
 
     .divider {
@@ -185,9 +184,9 @@ async function main() {
     class="card"
     x="0.5"
     y="0.5"
-    rx="10"
     width="799"
-    height="244"
+    height="249"
+    rx="10"
   />
 
   <text
@@ -195,39 +194,98 @@ async function main() {
     x="400"
     y="38"
     text-anchor="middle"
-  >⚡ GitHub Activity</text>
+  >GitHub Activity</text>
 
-  <line class="divider" x1="40" y1="58" x2="760" y2="58"/>
+  <line
+    class="divider"
+    x1="40"
+    y1="59"
+    x2="760"
+    y2="59"
+  />
 
-  <text class="number" x="155" y="105" text-anchor="middle">${totalCommits}</text>
-  <text class="label" x="155" y="129" text-anchor="middle">Commits</text>
+  <text
+    class="number"
+    x="150"
+    y="108"
+    text-anchor="middle"
+  >${totalCommits}</text>
 
-  <text class="number" x="400" y="105" text-anchor="middle">${repoCount}</text>
-  <text class="label" x="400" y="129" text-anchor="middle">Repositórios</text>
+  <text
+    class="label"
+    x="150"
+    y="133"
+    text-anchor="middle"
+  >Commits</text>
 
-  <text class="number" x="645" y="105" text-anchor="middle">${pullRequests}</text>
-  <text class="label" x="645" y="129" text-anchor="middle">Pull Requests</text>
+  <text
+    class="number"
+    x="400"
+    y="108"
+    text-anchor="middle"
+  >${repoCount}</text>
 
-  <line class="divider" x1="40" y1="153" x2="760" y2="153"/>
+  <text
+    class="label"
+    x="400"
+    y="133"
+    text-anchor="middle"
+  >Repositórios</text>
 
-  <text class="repo-title" x="40" y="184">🔥 Repositório mais ativo</text>
+  <text
+    class="number"
+    x="650"
+    y="108"
+    text-anchor="middle"
+  >${pullRequests}</text>
 
-  <a href="${escapeXML(activeRepoUrl)}" target="_blank">
-    <text class="repo" x="40" y="215">${escapeXML(activeRepoName)}</text>
+  <text
+    class="label"
+    x="650"
+    y="133"
+    text-anchor="middle"
+  >Pull Requests</text>
+
+  <line
+    class="divider"
+    x1="40"
+    y1="158"
+    x2="760"
+    y2="158"
+  />
+
+  <text
+    class="repoTitle"
+    x="40"
+    y="190"
+  >Repositório mais ativo</text>
+
+  <a href="${escapeXML(activeRepoUrl)}">
+    <text
+      class="repo"
+      x="40"
+      y="221"
+    >${escapeXML(activeRepoName)}</text>
   </a>
 
   <text
-    class="repo-count"
+    class="repoCount"
     x="760"
-    y="215"
+    y="221"
     text-anchor="end"
   >${mostActiveCommits} commits</text>
+
 </svg>
 `.trim();
 
-  const outputDirectory = path.join(process.cwd(), "images");
+  const outputDirectory = path.join(
+    process.cwd(),
+    "images"
+  );
 
-  fs.mkdirSync(outputDirectory, { recursive: true });
+  fs.mkdirSync(outputDirectory, {
+    recursive: true,
+  });
 
   fs.writeFileSync(
     path.join(outputDirectory, "github-stats.svg"),
@@ -235,12 +293,14 @@ async function main() {
   );
 
   console.log("");
-  console.log("GitHub Stats gerado:");
+  console.log("=== RESULTADO ===");
   console.log(`Commits: ${totalCommits}`);
   console.log(`Repositórios: ${repoCount}`);
   console.log(`Pull Requests: ${pullRequests}`);
   console.log(
-    `Mais ativo: ${mostActiveRepo?.name || "N/A"} (${mostActiveCommits} commits)`
+    `Repositório mais ativo: ${
+      mostActiveRepo?.name || "N/A"
+    } (${mostActiveCommits} commits)`
   );
 }
 
