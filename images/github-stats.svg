@@ -1,146 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg"
-     width="800"
-     height="250"
-     viewBox="0 0 800 250"
-     role="img"
-     aria-label="GitHub Stats de Pedro Lima">
-
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="220" viewBox="0 0 800 220" role="img" aria-labelledby="title description">
+  <title id="title">GitHub Stats de Pedro Lima</title>
+  <desc id="description">636 commits em repositórios públicos próprios, 20 repositórios públicos, 24 pull requests e repositório mais ativo StockControl_Frontend, com 324 commits.</desc>
   <style>
-    .card {
-      fill: #0d1117;
-      stroke: #30363d;
-      stroke-width: 1;
-    }
-
-    .title {
-      fill: #f0f6fc;
-      font: 600 21px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .number {
-      fill: #58a6ff;
-      font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .label {
-      fill: #8b949e;
-      font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .repoTitle {
-      fill: #f0f6fc;
-      font: 600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .repo {
-      fill: #58a6ff;
-      font: 600 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .repoCount {
-      fill: #8b949e;
-      font: 500 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .divider {
-      stroke: #30363d;
-      stroke-width: 1;
-    }
+    .card { fill: #0d1117; stroke: #30363d; }
+    .title { fill: #f0f6fc; font: 600 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .number { fill: #58a6ff; font: 700 29px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .label, .repo-title { fill: #8b949e; font: 500 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .repo { fill: #58a6ff; font: 600 17px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .repo-count { fill: #c9d1d9; font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .divider { stroke: #30363d; }
   </style>
-
-  <rect
-    class="card"
-    x="0.5"
-    y="0.5"
-    width="799"
-    height="249"
-    rx="10"
-  />
-
-  <text
-    class="title"
-    x="400"
-    y="38"
-    text-anchor="middle"
-  >GitHub Activity</text>
-
-  <line
-    class="divider"
-    x1="40"
-    y1="59"
-    x2="760"
-    y2="59"
-  />
-
-  <text
-    class="number"
-    x="150"
-    y="108"
-    text-anchor="middle"
-  >635</text>
-
-  <text
-    class="label"
-    x="150"
-    y="133"
-    text-anchor="middle"
-  >Commits</text>
-
-  <text
-    class="number"
-    x="400"
-    y="108"
-    text-anchor="middle"
-  >20</text>
-
-  <text
-    class="label"
-    x="400"
-    y="133"
-    text-anchor="middle"
-  >Repositórios</text>
-
-  <text
-    class="number"
-    x="650"
-    y="108"
-    text-anchor="middle"
-  >24</text>
-
-  <text
-    class="label"
-    x="650"
-    y="133"
-    text-anchor="middle"
-  >Pull Requests</text>
-
-  <line
-    class="divider"
-    x1="40"
-    y1="158"
-    x2="760"
-    y2="158"
-  />
-
-  <text
-    class="repoTitle"
-    x="40"
-    y="190"
-  >Repositório mais ativo</text>
-
-  <a href="https://github.com/uPedroLima11/StockControl_Frontend">
-    <text
-      class="repo"
-      x="40"
-      y="221"
-    >StockControl_Frontend</text>
-  </a>
-
-  <text
-    class="repoCount"
-    x="760"
-    y="221"
-    text-anchor="end"
-  >324 commits</text>
-
+  <rect class="card" x="0.5" y="0.5" width="799" height="219" rx="10"/>
+  <text class="title" x="400" y="34" text-anchor="middle">GitHub Activity</text>
+  <line class="divider" x1="40" y1="51" x2="760" y2="51"/>
+  <text class="number" x="150" y="94" text-anchor="middle">636</text>
+  <text class="label" x="150" y="118" text-anchor="middle">Commits</text>
+  <text class="number" x="400" y="94" text-anchor="middle">20</text>
+  <text class="label" x="400" y="118" text-anchor="middle">Repositórios</text>
+  <text class="number" x="650" y="94" text-anchor="middle">24</text>
+  <text class="label" x="650" y="118" text-anchor="middle">Pull Requests</text>
+  <line class="divider" x1="40" y1="137" x2="760" y2="137"/>
+  <text class="repo-title" x="40" y="165">Repositório mais ativo</text>
+  <a href="https://github.com/uPedroLima11/StockControl_Frontend"><text class="repo" x="40" y="194">StockControl_Frontend</text></a>
+  <text class="repo-count" x="760" y="194" text-anchor="end">324 commits</text>
 </svg>
