@@ -8,10 +8,10 @@
   <title id="title">GitHub Stats de Pedro Lima</title>
 
   <desc id="description">
-    1063 commits,
+    1100 commits,
     34 repositórios,
-    27 pull requests.
-    Repositórios mais ativos: 1: StockControl_Frontend, 324 commits; 2: quadra_adm, 187 commits; 3: React-Portifolio, 120 commits.
+    28 pull requests.
+    Repositórios mais ativos: 1: StockControl_Frontend, 324 commits; 2: quadra_adm, 222 commits; 3: React-Portifolio, 121 commits.
   </desc>
 
   <style>
@@ -78,7 +78,7 @@
   <line class="divider" x1="40" y1="51" x2="760" y2="51"/>
 
   <text class="number" x="150" y="94" text-anchor="middle">
-    1063
+    1100
   </text>
 
   <text class="label" x="150" y="118" text-anchor="middle">
@@ -94,7 +94,7 @@
   </text>
 
   <text class="number" x="650" y="94" text-anchor="middle">
-    27
+    28
   </text>
 
   <text class="label" x="650" y="118" text-anchor="middle">
@@ -117,10 +117,10 @@
   <a href="https://github.com/RLima-Rodrigo/quadra_adm">
     <text class="repo" x="72" y="236">🔒 quadra_adm</text>
   </a>
-  <text class="repo-count" x="758" y="236" text-anchor="end">187 commits</text>
+  <text class="repo-count" x="758" y="236" text-anchor="end">222 commits</text>
   <text class="position" x="42" y="274">3.</text>
   <a href="https://github.com/uPedroLima11/React-Portifolio">
     <text class="repo" x="72" y="274">React-Portifolio</text>
   </a>
-  <text class="repo-count" x="758" y="274" text-anchor="end">120 commits</text>
+  <text class="repo-count" x="758" y="274" text-anchor="end">121 commits</text>
 </svg>
