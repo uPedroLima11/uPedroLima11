@@ -3,7 +3,7 @@
 <h3 align="center">Full Stack Developer</h3>
 
 <p align="center">
-  Desenvolvedor focado na criação de aplicações web, sistemas completos e APIs.
+  Desenvolvedor FullStack, focado na criação de aplicações web, sistemas completos e APIs.
 </p>
 
 <p align="center">
